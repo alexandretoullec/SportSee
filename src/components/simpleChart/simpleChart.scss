@@ -1,0 +1,15 @@
+@import "../../styles/variables.scss";
+
+.simpleChartBox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  background-color: $fc-primary;
+  .chart {
+    height: 80%;
+    width: 100%;
+  }
+}

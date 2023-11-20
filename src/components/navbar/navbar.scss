@@ -1,0 +1,30 @@
+@import "../../styles/variables.scss";
+
+.navbar {
+  background: $bg-black;
+  color: $fc-white;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10vh;
+  .logo {
+    flex: 1;
+    display: flex;
+    // align-items: center;
+    // font-weight: bold;
+    // justify-content: space-between;
+    // gap: 10px;
+  }
+
+  .navigation {
+    padding: 0 10rem;
+    flex: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: $fs-nav;
+    // gap: 20px;
+  }
+}
