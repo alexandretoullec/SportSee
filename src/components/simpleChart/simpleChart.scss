@@ -8,8 +8,16 @@
   justify-content: space-between;
   border-radius: 10px;
   background-color: $fc-primary;
+
   .chart {
     height: 80%;
     width: 100%;
+  }
+  h2 {
+    color: #ffffff;
+    position: relative;
+    font-size: 15px;
+    font-weight: 500;
+    width: 170px;
   }
 }

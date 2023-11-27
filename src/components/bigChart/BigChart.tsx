@@ -12,89 +12,6 @@ import {
   Rectangle,
 } from "recharts";
 
-// const data = [
-//   {
-//     userId: 12,
-//     sessions: [
-//       {
-//         day: "2020-07-01",
-//         kilogram: 80,
-//         calories: 240,
-//       },
-//       {
-//         day: "2020-07-02",
-//         kilogram: 80,
-//         calories: 220,
-//       },
-//       {
-//         day: "2020-07-03",
-//         kilogram: 81,
-//         calories: 280,
-//       },
-//       {
-//         day: "2020-07-04",
-//         kilogram: 81,
-//         calories: 290,
-//       },
-//       {
-//         day: "2020-07-05",
-//         kilogram: 80,
-//         calories: 160,
-//       },
-//       {
-//         day: "2020-07-06",
-//         kilogram: 78,
-//         calories: 162,
-//       },
-//       {
-//         day: "2020-07-07",
-//         kilogram: 76,
-//         calories: 390,
-//       },
-//     ],
-//   },
-//   {
-//     userId: 18,
-//     sessions: [
-//       {
-//         day: "2020-07-01",
-//         kilogram: 70,
-//         calories: 240,
-//       },
-//       {
-//         day: "2020-07-02",
-//         kilogram: 69,
-//         calories: 220,
-//       },
-//       {
-//         day: "2020-07-03",
-//         kilogram: 70,
-//         calories: 280,
-//       },
-//       {
-//         day: "2020-07-04",
-//         kilogram: 70,
-//         calories: 500,
-//       },
-//       {
-//         day: "2020-07-05",
-//         kilogram: 69,
-//         calories: 160,
-//       },
-//       {
-//         day: "2020-07-06",
-//         kilogram: 69,
-//         calories: 162,
-//       },
-//       {
-//         day: "2020-07-07",
-//         kilogram: 69,
-//         calories: 390,
-//       },
-//     ],
-//   },
-// ];
-
 type Props = {
   userId: number;
 
@@ -102,7 +19,7 @@ type Props = {
 };
 
 const BigChart = (props: Props) => {
-  // console.log(props[0].sessions);
+  // console.log(props.sessions);
 
   return (
     <div className="bigChartBox">
@@ -112,7 +29,7 @@ const BigChart = (props: Props) => {
           <BarChart
             width={500}
             height={300}
-            data={props[0].sessions}
+            data={props.sessions}
             margin={{
               top: 5,
               right: 30,
@@ -121,14 +38,51 @@ const BigChart = (props: Props) => {
             }}
           >
             <Legend layout="horizontal" verticalAlign="top" align="right" />
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
-            <YAxis />
+            <CartesianGrid
+              strokeDasharray="3 3"
+              vertical={false}
+              stroke="#DEDEDE"
+              strokeWidth={1}
+            />
+            <XAxis
+              dataKey={"day"}
+              tickLine={false}
+              stroke="#DEDEDE"
+              strokeWidth={1}
+              tick={{ fill: "#9B9EAC", fontSize: "14", fontWeight: "500" }}
+            />
+            <YAxis
+              dataKey={"kilogram"}
+              interval="preserveStart"
+              tickCount={3}
+              vertical={false}
+              tickLine={false}
+              axisLine={false}
+              orientation="right"
+              type="number"
+              domain={["dataMin - 1", "dataMax +2"]}
+              yAxisId={0}
+              tick={{ fill: "#9B9EAC", fontSize: "14", fontWeight: "500" }}
+            />
             <Tooltip
-              contentStyle={{
-                background: "grey",
-                border: "none",
+              itemStyle={{
                 color: "white",
+                fontSize: 10,
+                fontWeight: 500,
+              }}
+              // to display the unit and its value
+              formatter={(value, name, unit) => [value, unit]}
+              // to style the label container Tooltip
+              labelStyle={{ display: "none" }}
+              contentStyle={{
+                backgroundColor: "#E60000",
+                width: "48px",
+                height: "63px",
+                border: "none",
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             />
 

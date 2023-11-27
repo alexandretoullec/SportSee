@@ -11,26 +11,29 @@ import {
 
 type Props = {
   id: number;
+  score: number;
   todayScore: number;
 };
 
-const data = [
-  { name: "Mobile", value: 400, color: "#0088FE" },
-  { name: "Desktop", value: 300, color: "#00C49F" },
-  { name: "Laptop", value: 300, color: "#FFBB28" },
-  { name: "Tablet", value: 200, color: "#FF8042" },
-];
+// const data = [
+//   { name: "Mobile", value: 400, color: "#0088FE" },
+//   { name: "Desktop", value: 300, color: "#00C49F" },
+//   { name: "Laptop", value: 300, color: "#FFBB28" },
+//   { name: "Tablet", value: 200, color: "#FF8042" },
+// ];
 
-const style = {
-  top: "50%",
-  right: 0,
-  transform: "translate(0, -50%)",
-  lineHeight: "24px",
-};
+// const style = {
+//   top: "50%",
+//   right: 0,
+//   transform: "translate(0, -50%)",
+//   lineHeight: "24px",
+// };
 
 const RoundedChart = (props: Props) => {
-  const score = Math.round(props[0].todayScore * 100);
-  console.log(props[0].todayScore);
+  const score = props.todayScore
+    ? Math.round(props.todayScore)
+    : Math.round(props.score * 100);
+  console.log(score);
   const dataRiadialBar = [{ score: score, fill: "rgba(255, 0, 0, 1)" }];
   return (
     <div className="roundedChartBox">
@@ -50,15 +53,21 @@ const RoundedChart = (props: Props) => {
               tick={false}
             />
             <RadialBar dataKey="score" cornerRadius={10} />
-            {/* <text className="score-radial-text">
+            <text className="score-radial-text">
               <tspan x={25} y={30}>
                 Score
               </tspan>
-            </text> */}
-            {/* <Legend
-                        content={<AverageScoreLegend data={score} />}
-                        verticalAlign="middle"
-                    /> */}
+            </text>
+            <Legend
+              content={
+                <p>
+                  <span>{score}</span> % <br />
+                  de votre <br />
+                  objectif
+                </p>
+              }
+              verticalAlign="middle"
+            />
           </RadialBarChart>
         </ResponsiveContainer>
       </div>

@@ -1,0 +1,12 @@
+.nutritionStatsCard {
+  display: flex;
+
+  .calories__img {
+    margin-right: 2rem;
+  }
+  .calories__text {
+    h2 {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

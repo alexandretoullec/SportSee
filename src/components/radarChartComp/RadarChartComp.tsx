@@ -11,23 +11,29 @@ import {
 
 type Props = {
   userId: number;
-  sessions: object[];
+  kind: object[];
+  data: object[];
 };
 
 const RadarChartComp = (props: Props) => {
+  console.log(props.kind);
+
   return (
     <div className="radarChartBox">
       <div className="chart">
         <ResponsiveContainer width="99%" height="80%">
-          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={props[0].data}>
-            <PolarGrid />
-            <PolarAngleAxis dataKey="kind" />
-            <PolarRadiusAxis />
-            <Radar
-              name="Mike"
+          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={props.data}>
+            <PolarGrid radialLines={false} />
+            <PolarAngleAxis
               dataKey="kind"
-              stroke="#8884d8"
-              fill="#8884d8"
+              tick={{ fontSize: "12", fontWeight: "500", fill: "#FFFFFF" }}
+            />
+
+            <Radar
+              name="performance"
+              dataKey="value"
+              stroke="rgba(255, 1, 1, 0.7)"
+              fill="rgba(255, 1, 1, 0.7)"
               fillOpacity={0.6}
             />
           </RadarChart>

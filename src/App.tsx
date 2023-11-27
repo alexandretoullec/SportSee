@@ -33,7 +33,7 @@ const App = () => {
       element: <Layout />,
       children: [
         {
-          path: "/",
+          path: "/:currentId",
           element: <Home />,
         },
         {
