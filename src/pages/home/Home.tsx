@@ -39,7 +39,7 @@ const Home = () => {
   });
   const [currentUserPerformance, setCurrentUserPerformance] = useState({
     userId: "",
-    kind: {},
+    kind: "",
     data: [],
   });
 

@@ -8,11 +8,12 @@
   // position: absolute;
   // width: 100%;
   height: 100%;
+  // justify-content: space-between;
   .icons {
-    margin-top: 15rem;
-    margin-bottom: 5rem;
+    margin-top: 12rem;
+    margin-bottom: 3rem;
     // position: relative;
-    height: 80%;
+    // height: 60%;
     // flex: 5;
     display: flex;
     flex-direction: column;
@@ -23,7 +24,7 @@
   .copyright {
     // flex: 1;
     position: relative;
-    height: 20%;
+    // height: auto;
     display: flex;
     justify-content: center;
     align-items: center;

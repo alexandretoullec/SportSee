@@ -33,7 +33,7 @@ const RoundedChart = (props: Props) => {
   const score = props.todayScore
     ? Math.round(props.todayScore)
     : Math.round(props.score * 100);
-  console.log(score);
+  // console.log(score);
   const dataRiadialBar = [{ score: score, fill: "rgba(255, 0, 0, 1)" }];
   return (
     <div className="roundedChartBox">

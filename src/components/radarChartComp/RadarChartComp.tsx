@@ -11,12 +11,30 @@ import {
 
 type Props = {
   userId: number;
-  kind: object[];
+  kind: object;
   data: object[];
 };
 
 const RadarChartComp = (props: Props) => {
-  console.log(props.kind);
+  const kinds = Object.values(props.kind);
+  console.log(props.data);
+
+  const kind = {
+    1: "cardio",
+    2: "energy",
+    3: "endurance",
+    4: "strength",
+    5: "speed",
+    6: "intensity",
+  };
+
+  // const datas = [
+  //   props.data.map((item) => {
+  //     console.log(item.value);
+  //   }),
+  // ];
+
+  // console.log(datas);
 
   return (
     <div className="radarChartBox">
@@ -26,6 +44,7 @@ const RadarChartComp = (props: Props) => {
             <PolarGrid radialLines={false} />
             <PolarAngleAxis
               dataKey="kind"
+              tickFormatter={(value) => kind[value]}
               tick={{ fontSize: "12", fontWeight: "500", fill: "#FFFFFF" }}
             />
 

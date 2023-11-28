@@ -18,6 +18,19 @@ type Props = {
   sessions: object[];
 };
 
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const session = payload[0].payload;
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{`${session.kilogram}kg`}</p>
+        <p className="label">{`${session.calories}kCal`}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
 const BigChart = (props: Props) => {
   // console.log(props.sessions);
 
@@ -31,7 +44,7 @@ const BigChart = (props: Props) => {
             height={300}
             data={props.sessions}
             margin={{
-              top: 5,
+              top: 30,
               right: 30,
               left: 20,
               bottom: 5,
@@ -49,20 +62,27 @@ const BigChart = (props: Props) => {
               tickLine={false}
               stroke="#DEDEDE"
               strokeWidth={1}
+              tickFormatter={(value) => new Date(value).getDate().toString()}
+              tickMargin={15}
               tick={{ fill: "#9B9EAC", fontSize: "14", fontWeight: "500" }}
             />
             <YAxis
-              dataKey={"kilogram"}
-              interval="preserveStart"
-              tickCount={3}
-              vertical={false}
-              tickLine={false}
+              yAxisId="kilogram"
+              dataKey="kilogram"
+              type="number"
+              domain={["dataMin-2", "dataMax+1"]}
+              tickCount="3"
               axisLine={false}
               orientation="right"
+              tickLine={false}
+              tick={{ fontSize: "14px" }}
+              dx={15}
+            />
+            <YAxis
+              yAxisId="calories"
+              dataKey="calories"
               type="number"
-              domain={["dataMin - 1", "dataMax +2"]}
-              yAxisId={0}
-              tick={{ fill: "#9B9EAC", fontSize: "14", fontWeight: "500" }}
+              hide={true}
             />
             <Tooltip
               itemStyle={{
@@ -71,13 +91,13 @@ const BigChart = (props: Props) => {
                 fontWeight: 500,
               }}
               // to display the unit and its value
-              formatter={(value, name, unit) => [value, unit]}
+              labelFormatter={(value, name, unit) => [value, unit]}
               // to style the label container Tooltip
               labelStyle={{ display: "none" }}
               contentStyle={{
                 backgroundColor: "#E60000",
-                width: "48px",
-                height: "63px",
+                width: "70px",
+                height: "50px",
                 border: "none",
                 textAlign: "center",
                 display: "flex",
@@ -88,6 +108,7 @@ const BigChart = (props: Props) => {
 
             <Bar
               dataKey="kilogram"
+              yAxisId="kilogram"
               fill="#282D30"
               barSize={10}
               radius={[10, 10, 0, 0]}
@@ -95,6 +116,7 @@ const BigChart = (props: Props) => {
             />
             <Bar
               dataKey="calories"
+              yAxisId="calories"
               fill="#E60000"
               barSize={10}
               radius={[10, 10, 0, 0]}
