@@ -17,7 +17,7 @@ type Props = {
 
 const RadarChartComp = (props: Props) => {
   const kinds = Object.values(props.kind);
-  console.log(props.data);
+  // console.log(props.data);
 
   const kind = {
     1: "cardio",

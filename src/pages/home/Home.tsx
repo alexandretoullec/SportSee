@@ -15,12 +15,36 @@ import {
   USER_PERFORMANCE,
 } from "../../mockedDatas/data";
 
+/**
+ * Home component representing the main dashboard of the application.
+ * @component
+ * @returns {JSX.Element} JSX element representing the Home component.
+ */
+
 const Home = () => {
   // mockerUserInfos();
   const { currentId } = useParams();
+  const userId = currentId;
   const id = parseInt(currentId);
+  const [error, setError] = useState(false);
+  const [ismocked, setIsMocked] = useState(true);
+
+  /**
+   * URL for the API endpoint (mocked for testing purposes).
+   * @type {string}
+   */
 
   const API_URL = "../../mockedDatas/data.js";
+
+  /**
+   * State variable for the main data of the current user.
+   * @type {Object}
+   * @property {string} id - The user ID.
+   * @property {Object} userInfos - Information about the user.
+   * @property {string} todayScore - Score for the current day.
+   * @property {string} score - Overall score.
+   * @property {Object} keyData - Additional key data.
+   */
 
   const [currentMainData, setCurrentMainData] = useState({
     id: "",
@@ -29,56 +53,165 @@ const Home = () => {
     score: "",
     keyData: {},
   });
+
+  /**
+   * State variable for the activity data of the current user.
+   * @type {Object}
+   * @property {string} userId - The user ID.
+   * @property {Array} sessions - Array of user sessions.
+   */
+
   const [currentActivity, setCurrentActivity] = useState({
     userId: "",
     sessions: [],
   });
+
+  /**
+   * State variable for the average session data of the current user.
+   * @type {Object}
+   * @property {string} userId - The user ID.
+   * @property {Array} sessions - Array of average sessions.
+   */
+
   const [currentAverageSession, setCurrentAverageSession] = useState({
     userId: "",
     sessions: [],
   });
+
+  /**
+   * State variable for the performance data of the current user.
+   * @type {Object}
+   * @property {string} userId - The user ID.
+   * @property {string} kind - The type of performance data.
+   * @property {Array} data - Array of performance data.
+   */
+
   const [currentUserPerformance, setCurrentUserPerformance] = useState({
     userId: "",
     kind: "",
     data: [],
   });
 
+  // const response = await fetch(API_URL);
+  // const data = await response.json();
+
+  /**
+   * Asynchronous function to fetch the main data of the current user.
+   * @async
+   * @function
+   * @returns {Promise<Object>} A promise that resolves to the filtered main data.
+   */
+
   const getCurrentMainData = async () => {
-    // const response = await fetch(API_URL);
-    const data = USER_MAIN_DATA;
-    const filteredDataMain = data.find((data) => data.id === id);
-    return filteredDataMain;
+    try {
+      if (ismocked) {
+        const data = USER_MAIN_DATA;
+
+        const filteredDataMain = data.find((data) => data.id === id);
+        return filteredDataMain;
+      } else {
+        const response = await fetch(`http://localhost:3000/user/${userId}`);
+
+        const mainDataAPI = await response.json();
+        console.log(mainDataAPI);
+
+        return mainDataAPI;
+      }
+    } catch (error) {
+      console.error("Error fetching main data:", error);
+      setError(true);
+    }
   };
 
+  /**
+   * Asynchronous function to fetch the activity data of the current user.
+   * @async
+   * @function
+   * @returns {Promise<Object>} A promise that resolves to the filtered activity data.
+   */
+
   const getCurrentActivity = async () => {
-    const data = USER_ACTIVITY;
-    const filteredDataActivity = data.find((data) => data.userId === id);
-    return filteredDataActivity;
+    try {
+      const data = USER_ACTIVITY;
+      const filteredDataActivity = data.find((data) => data.userId === id);
+      return filteredDataActivity;
+    } catch (error) {
+      console.error("Error fetching user activity data:", error);
+      setError(true);
+    }
   };
+
   const getCurrentAverageSesson = async () => {
-    const data = USER_AVERAGE_SESSIONS;
-    const filteredDataAverage = data.find((data) => data.userId === id);
-    return filteredDataAverage;
+    try {
+      const data = USER_AVERAGE_SESSIONS;
+      const filteredDataAverage = data.find((data) => data.userId === id);
+      return filteredDataAverage;
+    } catch (error) {
+      console.error("Error fetching user average session data:", error);
+      setError(true);
+    }
   };
 
   const getCurentUserPerformance = async () => {
-    const data = USER_PERFORMANCE;
-    const filterUserPerformance = data.find((data) => data.userId === id);
+    try {
+      const data = USER_PERFORMANCE;
+      const filterUserPerformance = data.find((data) => data.userId === id);
 
-    return filterUserPerformance;
+      return filterUserPerformance;
+    } catch (error) {
+      console.error("Error fetching user average session data:", error);
+      setError(true);
+    }
   };
 
+  /**
+   * useEffect hook to fetch data when the component mounts.
+   * @effect
+   * @function
+   * @returns {void}
+   */
+
   useEffect(() => {
-    getCurrentMainData().then((data) => setCurrentMainData(data));
-    getCurrentActivity().then((data) => setCurrentActivity(data));
-    getCurrentAverageSesson().then((data) => setCurrentAverageSession(data));
-    getCurentUserPerformance().then((data) => setCurrentUserPerformance(data));
+    const fetchData = async () => {
+      try {
+        const mainData = await getCurrentMainData();
+        setCurrentMainData(mainData);
+
+        const activityData = await getCurrentActivity();
+        setCurrentActivity(activityData);
+
+        const averageSessionData = await getCurrentAverageSesson();
+        setCurrentAverageSession(averageSessionData);
+
+        const userPerformanceData = await getCurentUserPerformance();
+        setCurrentUserPerformance(userPerformanceData);
+      } catch (error) {
+        console.log("Error fetching data : ", error);
+        setError(true);
+      }
+    };
+    fetchData();
   }, []);
 
-  console.log(currentMainData.score);
+  /**
+   * Render method for the Home component.
+   * @returns {JSX.Element} JSX element representing the rendered Home component.
+   */
+
+  const toggmeMockedData = () => {
+    ismocked ? setIsMocked(false) : setIsMocked(true);
+  };
+
+  if (error) {
+    return <span>Oups il y'a eu une erreur</span>;
+  }
+  console.log(currentMainData);
 
   return (
     <div className="home">
+      <button onClick={toggmeMockedData}>
+        mockedData? : {ismocked.toString()}
+      </button>
       <Banner {...currentMainData} />
       <div className="mainGrid">
         <div className="box box1">

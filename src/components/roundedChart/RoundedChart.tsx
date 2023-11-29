@@ -35,6 +35,14 @@ const RoundedChart = (props: Props) => {
     : Math.round(props.score * 100);
   // console.log(score);
   const dataRiadialBar = [{ score: score, fill: "rgba(255, 0, 0, 1)" }];
+
+  const Content = () => (
+    <p>
+      <span>{score}</span> % <br />
+      de votre <br />
+      objectif
+    </p>
+  );
   return (
     <div className="roundedChartBox">
       <div className="chart">
@@ -59,13 +67,8 @@ const RoundedChart = (props: Props) => {
               </tspan>
             </text>
             <Legend
-              content={
-                <p>
-                  <span>{score}</span> % <br />
-                  de votre <br />
-                  objectif
-                </p>
-              }
+              content={<Content />}
+              align="center"
               verticalAlign="middle"
             />
           </RadialBarChart>
