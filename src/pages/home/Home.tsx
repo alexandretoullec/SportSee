@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./home.scss";
+import { useFetch } from "../../utils/hooks";
 import Banner from "../../components/banner/Banner";
+import Banner2 from "../../components/banner2/Banner2";
 import BigChart from "../../components/bigChart/BigChart";
 import SimpleChart from "../../components/simpleChart/SimpleChart";
 import RadarChart from "../../components/radarChartComp/RadarChartComp";
 import RoundedChart from "../../components/roundedChart/RoundedChart";
 import NutritionStats from "../../components/nutritionStats/NutritionStats";
-import { mockerUserInfos } from "../../utils/mockCall";
+
 import {
   USER_ACTIVITY,
   USER_AVERAGE_SESSIONS,
@@ -27,7 +29,15 @@ const Home = () => {
   const userId = currentId;
   const id = parseInt(currentId);
   const [error, setError] = useState(false);
-  const [ismocked, setIsMocked] = useState(true);
+  const [ismocked, setIsMocked] = useState(false);
+
+  const { data, isLoading } = useFetch(`http://localhost:3000/user/${userId}`);
+
+  const mainData2 = data;
+
+  console.log(mainData2);
+
+  // mainData2 && console.log(mainData2);
 
   /**
    * URL for the API endpoint (mocked for testing purposes).
@@ -102,27 +112,25 @@ const Home = () => {
    * @returns {Promise<Object>} A promise that resolves to the filtered main data.
    */
 
-  const getCurrentMainData = async () => {
-    try {
-      if (ismocked) {
-        const data = USER_MAIN_DATA;
+  // const getCurrentMainData = async () => {
+  //   try {
+  //     if (ismocked) {
+  //       const dataMocked = USER_MAIN_DATA;
 
-        const filteredDataMain = data.find((data) => data.id === id);
-        return filteredDataMain;
-      } else {
-        const response = await fetch(`http://localhost:3000/user/${userId}`);
+  //       const filteredDataMain = dataMocked.find((data) => data.id === id);
+  //       return filteredDataMain;
+  //     } else {
+  //       const response = await fetch(`http://localhost:3000/user/${userId}`);
 
-        const mainDataAPI = await response.json();
-        console.log(mainDataAPI);
+  //       const mainDataAPI = await response.json();
 
-        return mainDataAPI;
-      }
-    } catch (error) {
-      console.error("Error fetching main data:", error);
-      setError(true);
-    }
-  };
-
+  //       return mainDataAPI;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching main data:", error);
+  //     setError(true);
+  //   }
+  // };
   /**
    * Asynchronous function to fetch the activity data of the current user.
    * @async
@@ -174,17 +182,15 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const mainData = await getCurrentMainData();
-        setCurrentMainData(mainData);
-
-        const activityData = await getCurrentActivity();
-        setCurrentActivity(activityData);
-
-        const averageSessionData = await getCurrentAverageSesson();
-        setCurrentAverageSession(averageSessionData);
-
-        const userPerformanceData = await getCurentUserPerformance();
-        setCurrentUserPerformance(userPerformanceData);
+        // const mainData = await getCurrentMainData();
+        // setCurrentMainData(mainData);
+        // console.log(mainData.data.userInfos);
+        // const activityData = await getCurrentActivity();
+        // setCurrentActivity(activityData);
+        // const averageSessionData = await getCurrentAverageSesson();
+        // setCurrentAverageSession(averageSessionData);
+        // const userPerformanceData = await getCurentUserPerformance();
+        // setCurrentUserPerformance(userPerformanceData);
       } catch (error) {
         console.log("Error fetching data : ", error);
         setError(true);
@@ -205,14 +211,14 @@ const Home = () => {
   if (error) {
     return <span>Oups il y'a eu une erreur</span>;
   }
-  console.log(currentMainData);
 
   return (
     <div className="home">
       <button onClick={toggmeMockedData}>
         mockedData? : {ismocked.toString()}
       </button>
-      <Banner {...currentMainData} />
+
+      {/* <Banner {...currentMainData} /> */}
       <div className="mainGrid">
         <div className="box box1">
           <BigChart {...currentActivity} />

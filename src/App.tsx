@@ -37,7 +37,7 @@ const App = () => {
           element: <Home />,
         },
         {
-          path: "/profil",
+          path: "/profil/:currentId",
           element: <Profil />,
         },
         {

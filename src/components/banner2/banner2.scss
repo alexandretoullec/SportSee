@@ -1,0 +1,15 @@
+@import "../../styles/variables.scss";
+
+.banner {
+  h1 {
+    font-size: $fs-title1;
+    margin-bottom: 2rem;
+    span {
+      color: $fc-primary;
+    }
+  }
+  h2 {
+    font-size: $fs-title2;
+    font-weight: 400;
+  }
+}
