@@ -2,13 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./home.scss";
 import { useFetch } from "../../utils/hooks";
-import Banner from "../../components/banner/Banner";
-import Banner2 from "../../components/banner2/Banner2";
-import BigChart from "../../components/bigChart/BigChart";
-import SimpleChart from "../../components/simpleChart/SimpleChart";
-import RadarChart from "../../components/radarChartComp/RadarChartComp";
-import RoundedChart from "../../components/roundedChart/RoundedChart";
-import NutritionStats from "../../components/nutritionStats/NutritionStats";
+import ProfilCard from "../../components/profilCard/profilCard";
+import { Link } from "react-router-dom";
 
 import {
   USER_ACTIVITY,
@@ -31,11 +26,49 @@ const Home = () => {
   const [error, setError] = useState(false);
   const [ismocked, setIsMocked] = useState(false);
 
-  const { data, isLoading } = useFetch(`http://localhost:3000/user/${userId}`);
+  const users = [
+    {
+      id: 12,
+      userInfos: {
+        firstName: "Karl",
+        lastName: "Dovineau",
+        age: 31,
+        picture:
+          "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/profile-picture-2.jpg",
+      },
+      todayScore: 12,
+      keyData: {
+        calorieCount: 1930,
+        proteinCount: 155,
+        carbohydrateCount: 290,
+        lipidCount: 50,
+      },
+    },
+    {
+      id: 18,
+      userInfos: {
+        firstName: "Cecilia",
+        lastName: "Ratorez",
+        age: 34,
+        picture:
+          "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/profile-picture-12.jpg",
+      },
+      score: 0.3,
+      keyData: {
+        calorieCount: 2500,
+        proteinCount: 90,
+        carbohydrateCount: 150,
+        lipidCount: 120,
+      },
+    },
+  ];
 
-  const mainData2 = data;
-
-  console.log(mainData2);
+  const {
+    data: userDataResp,
+    isLoading: isLoadingUser,
+    error: isErrorUser,
+  } = useFetch(`http://localhost:3000/user/${userId}`);
+  const userData = userDataResp;
 
   // mainData2 && console.log(mainData2);
 
@@ -204,37 +237,23 @@ const Home = () => {
    * @returns {JSX.Element} JSX element representing the rendered Home component.
    */
 
-  const toggmeMockedData = () => {
-    ismocked ? setIsMocked(false) : setIsMocked(true);
-  };
-
-  if (error) {
-    return <span>Oups il y'a eu une erreur</span>;
-  }
-
   return (
     <div className="home">
-      <button onClick={toggmeMockedData}>
-        mockedData? : {ismocked.toString()}
-      </button>
-
-      {/* <Banner {...currentMainData} /> */}
-      <div className="mainGrid">
-        <div className="box box1">
-          <BigChart {...currentActivity} />
-        </div>
-        <div className="box box2">
-          <SimpleChart {...currentAverageSession} />
-        </div>
-        <div className="box box3">
-          <RadarChart {...currentUserPerformance} />
-        </div>
-        <div className="box box4">
-          <RoundedChart {...currentMainData} />
-        </div>
-        <div className="box box5">
-          <NutritionStats {...currentMainData} />
-        </div>
+      <div className="profilCard-container">
+        <Link to={`/profil/${users[0].id}`} className="profilCard">
+          <img src={users[0].userInfos.picture} alt="profilePhoto" />
+          <div className="profileInfos">
+            <p>{users[0].userInfos.firstName}</p>
+            <p>{users[0].userInfos.lastName}</p>
+          </div>
+        </Link>
+        <Link to={`/profil/${users[1].id}`} className="profilCard">
+          <img src={users[1].userInfos.picture} alt="profilePhoto" />
+          <div className="profileInfos">
+            <p>{users[1].userInfos.firstName}</p>
+            <p>{users[1].userInfos.lastName}</p>
+          </div>
+        </Link>
       </div>
     </div>
   );
