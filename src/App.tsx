@@ -2,6 +2,7 @@ import React from "react";
 import Menu from "./components/menu/Menu";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/home/Home";
+import User from "./pages/User/User";
 import Profil from "./pages/profil/Profil";
 import Reglage from "./pages/reglage/Reglage";
 import Login from "./pages/login/Login";
@@ -39,6 +40,10 @@ const App = () => {
         {
           path: "/profil/:currentId",
           element: <Profil />,
+        },
+        {
+          path: "/user/:currentId",
+          element: <User />,
         },
         {
           path: "/reglage",

@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
   .chart {
     height: 80%;
     width: 100%;
@@ -18,4 +19,27 @@
       }
     }
   }
+}
+
+.text {
+  background-color: #ffffff;
+  border-radius: 50%;
+  color: #74798c;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  height: 210px;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  width: 145px;
+  height: 145px;
+  top: 50px;
+  left: 57px;
+}
+
+.score {
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+  font-size: 26px;
 }

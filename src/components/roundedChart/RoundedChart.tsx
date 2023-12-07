@@ -29,50 +29,46 @@ type Props = {
 //   lineHeight: "24px",
 // };
 
-const RoundedChart = (props: Props) => {
-  const score = props.todayScore
-    ? Math.round(props.todayScore)
-    : Math.round(props.score * 100);
-  // console.log(score);
-  const dataRiadialBar = [{ score: score, fill: "rgba(255, 0, 0, 1)" }];
+const RoundedChart = ({ data }) => {
+  // data = 1
 
-  const Content = () => (
-    <p>
-      <span>{score}</span> % <br />
-      de votre <br />
-      objectif
-    </p>
-  );
+  // if data undefined or not number
+  if (!data || isNaN(data)) return null;
+
+  // to define colored circle part and transparent circle part
+  const score = [
+    {
+      fill: "#FF0000",
+      value: data * 100,
+    },
+    {
+      fill: "transparent",
+      value: 100,
+    },
+  ];
   return (
     <div className="roundedChartBox">
       <div className="chart">
-        <ResponsiveContainer width="100%" height={260}>
+        <ResponsiveContainer width="100%" height={183}>
           <RadialBarChart
-            data={dataRiadialBar}
-            innerRadius="70%"
-            startAngle={90}
+            barSize={10}
+            data={score}
             endAngle={450}
-            className="score-radial"
+            height={250}
+            innerRadius="100%"
+            startAngle={90}
+            width={250}
           >
-            <PolarAngleAxis
-              dataKey="todayScore"
-              type="number"
-              domain={[0, 100]}
-              tick={false}
-            />
-            <RadialBar dataKey="score" cornerRadius={10} />
-            <text className="score-radial-text">
-              <tspan x={25} y={30}>
-                Score
-              </tspan>
-            </text>
-            <Legend
-              content={<Content />}
-              align="center"
-              verticalAlign="middle"
-            />
+            <RadialBar dataKey="value" />
           </RadialBarChart>
         </ResponsiveContainer>
+      </div>
+      <div className="text">
+        <div className="Score">
+          {score[0].value}%<br />
+        </div>
+        de votre
+        <br /> objectif
       </div>
     </div>
   );

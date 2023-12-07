@@ -1,45 +1,44 @@
-import { useEffect, useState } from "react";
-import {
-  USER_MAIN_DATA,
-  USER_ACTIVITY,
-  USER_AVERAGE_SESSIONS,
-  USER_PERFORMANCE,
-} from "../mockedDatas/data"; // Adjust the path based on your project structure
+import { useEffect, useState, useRef } from "react";
+// import {
+//   USER_MAIN_DATA,
+//   USER_ACTIVITY,
+//   USER_AVERAGE_SESSIONS,
+//   USER_PERFORMANCE,
+// } from "../mockedDatas/data"; // Adjust the path based on your project structure
 
 export const useFetch = (url, isMocked = true) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
-        // Use mocked data if specified or if there is an error during the API request
-        if (isMocked || error) {
-          handleMockedData(url);
-        } else {
+  if (!isMocked) {
+    useEffect(() => {
+      const fetchData = async () => {
+        setIsLoading(true);
+        try {
+          // Use mocked data if specified or if there is an error during the API request
+
           // Fetch real data
-          const response = await fetch(url);
+          const response = await fetch(url, {
+            signal: abortControllerRef.current?.signal,
+          });
           const realData = await response.json();
           setData(realData);
-        }
-      } catch (err) {
-        console.error(err);
-        setError(true);
+        } catch (error) {
+          console.error(error);
+          setError(true);
 
-        // Use mocked data when an error occurs during the API request
-        if (isMocked) {
-          handleMockedData(url);
+          // Use mocked data when an error occurs during the API request
+        } finally {
+          setIsLoading(false);
         }
-      } finally {
-        setIsLoading(false);
-      }
-    };
+      };
 
-    fetchData();
-  }, [url, isMocked, error]);
+      fetchData();
+    }, [url, error]);
+  }
 
   const handleMockedData = (url) => {
     const isUserUrl = url.includes("user");
@@ -67,7 +66,7 @@ export const useFetch = (url, isMocked = true) => {
       // Handle other mocked data scenarios if needed
     }
   };
-  console.log(data);
+  // console.log(data);
 
   return { isLoading, data, error };
 };

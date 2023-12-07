@@ -15,45 +15,31 @@ type Props = {
   data: object[];
 };
 
-const RadarChartComp = (props: Props) => {
-  const kinds = Object.values(props.kind);
-  // console.log(props.data);
-
-  const kind = {
-    1: "cardio",
-    2: "energy",
-    3: "endurance",
-    4: "strength",
-    5: "speed",
-    6: "intensity",
-  };
-
-  // const datas = [
-  //   props.data.map((item) => {
-  //     console.log(item.value);
-  //   }),
-  // ];
-
-  // console.log(datas);
+const RadarChartComp = ({ data }) => {
+  // if (!data) return null;
+  console.log(data);
 
   return (
     <div className="radarChartBox">
       <div className="chart">
-        <ResponsiveContainer width="99%" height="80%">
-          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={props.data}>
+        <ResponsiveContainer width="100%" height={263}>
+          <RadarChart
+            cx="50%"
+            cy="50%"
+            data={data}
+            margin={{ top: 0, right: 30, bottom: 0, left: 50 }}
+          >
             <PolarGrid radialLines={false} />
             <PolarAngleAxis
               dataKey="kind"
-              tickFormatter={(value) => kind[value]}
               tick={{ fontSize: "12", fontWeight: "500", fill: "#FFFFFF" }}
             />
-
             <Radar
               name="performance"
               dataKey="value"
               stroke="rgba(255, 1, 1, 0.7)"
               fill="rgba(255, 1, 1, 0.7)"
-              fillOpacity={0.6}
+              fillOpacity={0.9}
             />
           </RadarChart>
         </ResponsiveContainer>

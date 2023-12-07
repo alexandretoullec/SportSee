@@ -15,7 +15,7 @@ type Props = {
   sessions: object[];
 };
 
-const SimpleChart = (props: Props) => {
+const SimpleChart = ({ data }) => {
   const dayOfWeek = {
     1: "L",
     2: "M",
@@ -25,6 +25,8 @@ const SimpleChart = (props: Props) => {
     6: "S",
     7: "D",
   };
+  // console.log(data[0]);
+
   return (
     <div className="simpleChartBox">
       <div className="chart">
@@ -37,7 +39,7 @@ const SimpleChart = (props: Props) => {
               left: -50,
               // bottom: 15,
             }}
-            data={props.sessions}
+            data={data}
           >
             <CartesianGrid
               strokeDasharray=""

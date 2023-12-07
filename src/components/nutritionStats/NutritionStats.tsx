@@ -7,32 +7,32 @@ type Props = {
   keyData: object[];
 };
 
-const NutritionStats = (props: Props) => {
-  // console.log(props[0].keyData);
+const NutritionStats = ({ data }) => {
+  console.log(data);
 
   return (
     <div className="nutritionStats">
       <NutritionStatCard
         src={"/calories-icon.svg"}
-        count={props.keyData.calorieCount}
+        count={data.calorieCount}
         unit={"kCal"}
         title={"Calories"}
       />
       <NutritionStatCard
         src={"/protein-icon.svg"}
-        count={props.keyData.proteinCount}
+        count={data.proteinCount}
         unit={"g"}
         title={"Protéines"}
       />
       <NutritionStatCard
         src={"/carbs-icon.svg"}
-        count={props.keyData.carbohydrateCount}
+        count={data.carbohydrateCount}
         unit={"g"}
         title={"Glucides"}
       />
       <NutritionStatCard
         src={"/fat-icon.svg"}
-        count={props.keyData.lipidCount}
+        count={data.lipidCount}
         unit={"g"}
         title={"Lipides"}
       />
