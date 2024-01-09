@@ -31,7 +31,7 @@ export const getData = async (type, id, isMocked) => {
         data = await mockUserAverageSessions(id);
         break;
       default:
-        return [];
+        throw new Error(`Unsupported mock data type: ${type}`);
     }
 
     return data;
@@ -50,7 +50,7 @@ export const getData = async (type, id, isMocked) => {
         data = await getUserAverageSession(id);
         break;
       default:
-        return [];
+        throw new Error(`Unsupported API data type: ${type}`);
     }
   }
   return data;

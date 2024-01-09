@@ -1,100 +1,45 @@
-import { useState } from "react";
 import "./profil.scss";
-import { useFetch } from "../../utils/hooks";
-
-import SimpleChart from "../../components/simpleChart/SimpleChart";
-import Banner from "../../components/banner/Banner";
-import BigChart from "../../components/bigChart/BigChart";
-import NutritionStats from "../../components/nutritionStats/NutritionStats";
-import RadarChart from "../../components/radarChartComp/RadarChartComp";
-import RoundedChart from "../../components/roundedChart/RoundedChart";
-import SwitchDataButton from "../../components/switchDataButton/SwitchDataButton";
-import { mockUserInfos } from "../../utils/mocksCalls";
-import { useParams } from "react-router-dom";
 
 const Profil = () => {
-  const { currentId } = useParams();
-  const userId = currentId;
-  const [ismocked, setIsMocked] = useState(false);
-
-  const {
-    data: userDataResp,
-    isLoading: isLoadingUser,
-    error: isErrorUser,
-  } = useFetch(`http://localhost:3000/user/${userId}`, ismocked);
-  const userData = userDataResp;
-
-  const {
-    data: activityDataResp,
-    isLoading: isLoadingActivity,
-    error: isErrorActivity,
-  } = useFetch(`http://localhost:3000/user/${userId}/activity`, ismocked);
-
-  const userActivity = activityDataResp;
-
-  const {
-    data: averageSessionDataResp,
-    isLoading: isLoadingActivityAverageSession,
-    error: isErrorAverageSession,
-  } = useFetch(
-    `http://localhost:3000/user/${userId}/average-sessions`,
-    ismocked
-  );
-
-  const userAverageSession = averageSessionDataResp;
-
-  const {
-    data: performanceDataResp,
-    isLoading: isLoadingPerf,
-    error: isErrorAPerf,
-  } = useFetch(`http://localhost:3000/user/${userId}/performance`, ismocked);
-
-  const userPerf = performanceDataResp;
-  // console.log(userData);
-  // console.log(userAverageSession);
-
   return (
-    <div>
-      {/* <button onClick={toggleMockedData}>
-        Toggle Mocked Data: {ismocked.toString()}
-      </button> */}
-      <SwitchDataButton
-        isToggled={ismocked}
-        onToggle={() => setIsMocked(!ismocked)}
-        toggleText={ismocked ? "using mocked datas" : "using API datas"}
-      />
-      {userData && userActivity && userAverageSession && userPerf && (
-        <div className="home">
-          <Banner {...userData.data} />
-          <div className="mainGrid">
-            <div className="box box1">
-              <BigChart {...userActivity.data} />
-            </div>
-            <div className="box box2">
-              <SimpleChart {...userAverageSession.data} />
-            </div>
-            <div className="box box3">
-              <RadarChart {...userPerf.data} />
-            </div>
-            <div className="box box4">
-              <RoundedChart {...userData.data} />
-            </div>
-            <div className="box box5">
-              <NutritionStats {...userData.data} />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {(isLoadingUser ||
-        isLoadingActivity ||
-        isLoadingActivityAverageSession ||
-        isLoadingPerf) && <p>Loading...</p>}
-
-      {(isErrorUser ||
-        isErrorActivity ||
-        isErrorAverageSession ||
-        isErrorAPerf) && <p>Error fetching data </p>}
+    <div className="profil">
+      <h2>Profil</h2>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti
+        reprehenderit laborum impedit pariatur cum non quisquam libero dolorum,
+        error esse tempora similique minima dolores repellendus officia nam
+        autem tenetur vitae, numquam perspiciatis harum? Officiis voluptates
+        totam odit nobis minima provident aliquid sed qui esse, ducimus fugit
+        nihil quam quidem, iure quasi quisquam voluptatum consectetur cupiditate
+        architecto culpa. Quo nam voluptates quisquam accusantium eius quod
+        blanditiis omnis illum neque vitae. Assumenda corrupti itaque provident
+        repudiandae est necessitatibus quis rem dolorem ab autem eveniet, ipsam
+        ut exercitationem et perferendis veniam possimus obcaecati expedita
+        sapiente veritatis laborum! Voluptatum cupiditate possimus distinctio
+        veniam, quis dolor culpa unde nulla veritatis. Autem ipsum quasi
+        reprehenderit accusantium et magni quibusdam omnis laudantium possimus
+        magnam soluta a delectus eos atque, quaerat, dolorum, nihil deserunt?
+        Totam eaque molestias, exercitationem labore blanditiis quod obcaecati?
+        Est asperiores cupiditate corporis quas. Dolorum, officiis fuga porro
+        eius expedita labore ullam praesentium. Sapiente, perferendis
+        blanditiis? Perspiciatis, itaque aliquam unde non, cumque ex voluptas
+        reiciendis neque nihil sed repudiandae dolores totam ad iste dolore
+        minima, qui consequuntur excepturi voluptates? Veniam, consequuntur
+        neque officia doloremque architecto obcaecati sed est dolorum facere
+        impedit quod perspiciatis quo voluptates magnam aspernatur, tempore fuga
+        laborum esse eum? Harum nemo, iure nam sed labore eligendi natus sint
+        similique ducimus officia consequatur maxime possimus incidunt soluta
+        adipisci ut dolorum reiciendis ullam voluptas exercitationem officiis?
+        Assumenda esse laudantium maiores quae porro? Corporis, quibusdam.
+        Recusandae eius ut, deserunt cum necessitatibus culpa repudiandae iusto
+        assumenda, possimus a, cupiditate saepe autem voluptatum ipsa
+        voluptatem. Laudantium fugit tempore voluptate nostrum qui aut esse
+        incidunt quidem, fugiat dolorem doloremque laborum ipsum voluptatem unde
+        quas, soluta molestiae iste, officiis omnis quae adipisci provident
+        vitae minima vel! Exercitationem officia, inventore sint voluptatum
+        suscipit culpa numquam aperiam error velit excepturi doloribus nemo
+        similique deleniti iure sed odio quasi autem? Enim, animi.
+      </p>
     </div>
   );
 };

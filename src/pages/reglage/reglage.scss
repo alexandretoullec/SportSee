@@ -1,0 +1,13 @@
+@import "../../styles/variables.scss";
+
+.reglage {
+  display: flex;
+  align-items: center;
+  //   justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: $fs-sub;
+  gap: 1rem;
+  padding: 3rem;
+}

@@ -15,20 +15,6 @@ type Props = {
   todayScore: number;
 };
 
-// const data = [
-//   { name: "Mobile", value: 400, color: "#0088FE" },
-//   { name: "Desktop", value: 300, color: "#00C49F" },
-//   { name: "Laptop", value: 300, color: "#FFBB28" },
-//   { name: "Tablet", value: 200, color: "#FF8042" },
-// ];
-
-// const style = {
-//   top: "50%",
-//   right: 0,
-//   transform: "translate(0, -50%)",
-//   lineHeight: "24px",
-// };
-
 const RoundedChart = ({ data }) => {
   // data = 1
 
@@ -48,6 +34,7 @@ const RoundedChart = ({ data }) => {
   ];
   return (
     <div className="roundedChartBox">
+      <h2 className="scoreTitle">Score</h2>
       <div className="chart">
         <ResponsiveContainer width="100%" height={183}>
           <RadialBarChart
@@ -64,11 +51,12 @@ const RoundedChart = ({ data }) => {
         </ResponsiveContainer>
       </div>
       <div className="text">
-        <div className="Score">
-          {score[0].value}%<br />
+        <div className="score">
+          <span>{score[0].value}%</span>
+          <br />
+          de votre
+          <br /> objectif
         </div>
-        de votre
-        <br /> objectif
       </div>
     </div>
   );

@@ -1,24 +1,19 @@
-/* react  */
-import React from "react";
-import PropTypes from "prop-types";
-/* css  */
-import "./loader.scss";
+import { Audio } from "react-loader-spinner";
 
-/**
- * @function Spinner
- * @export
- * @description component that render load spinner
- * @param  {string} title - style class
- * @param  {string} typeLoader - loader type
- * @param  {string} formatting - formatting
- * @return {HTMLElement} component generated HTML
- */
-export default function Spinner({ title, typeLoader, formatting }) {
-  /*  example formatting = "spinnerMedium" */
+import React from "react";
+
+const Loader = () => {
   return (
-    <div className="container__spinner ">
-      <h1>{title}</h1>
-      <div className="loader"></div>
-    </div>
+    <Audio
+      height="200"
+      width="200"
+      radius="9"
+      color="red"
+      ariaLabel="three-dots-loading"
+      wrapperStyle
+      wrapperClass
+    />
   );
-}
+};
+
+export default Loader;

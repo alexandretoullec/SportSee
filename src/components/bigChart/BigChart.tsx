@@ -44,13 +44,19 @@ const BigChart = (props: Props) => {
             height={300}
             data={props.sessions}
             margin={{
-              top: 30,
+              top: 10,
               right: 30,
               left: 20,
               bottom: 5,
             }}
           >
-            <Legend layout="horizontal" verticalAlign="top" align="right" />
+            <Legend
+              layout="horizontal"
+              verticalAlign="top"
+              align="right"
+              width={200}
+              style={{ margin: "2rem" }}
+            />
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}

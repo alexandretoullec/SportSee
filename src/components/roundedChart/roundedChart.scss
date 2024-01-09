@@ -7,9 +7,17 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  .scoreTitle {
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    font-size: $fs-title2;
+  }
   .chart {
     height: 80%;
     width: 100%;
+    position: absolute;
+    top: 4rem;
     p {
       color: $fc-light-grey;
       span {
@@ -22,24 +30,27 @@
 }
 
 .text {
-  background-color: #ffffff;
+  // background-color: #ffffff;
   border-radius: 50%;
   color: #74798c;
   display: flex;
   flex-direction: column;
   font-size: 18px;
-  height: 210px;
+  height: auto;
   justify-content: center;
   position: absolute;
   text-align: center;
-  width: 145px;
-  height: 145px;
-  top: 50px;
-  left: 57px;
+  width: 100%;
+  height: 100%;
+  top: 0.5rem;
+  left: 0px;
 }
 
 .score {
   color: rgba(0, 0, 0, 0.8);
-  font-weight: 700;
-  font-size: 26px;
+
+  span {
+    font-weight: 700;
+    font-size: 25px;
+  }
 }

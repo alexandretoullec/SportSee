@@ -17,7 +17,7 @@ type Props = {
 
 const RadarChartComp = ({ data }) => {
   // if (!data) return null;
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="radarChartBox">

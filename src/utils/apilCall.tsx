@@ -29,6 +29,8 @@ export const getUserInfos = async (id) => {
   }
 };
 
+// console.log(getUserInfos);
+
 export const getUserActivties = async (id) => {
   try {
     const response = await axios.get(`${baseURL}user/${id}/activity`);
@@ -75,7 +77,7 @@ export const getUserPerformance = async (id) => {
   } catch (e) {
     console.log(e);
     return {
-      error: "",
+      error: "error",
       kind: "",
       data: "",
     };

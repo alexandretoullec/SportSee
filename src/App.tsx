@@ -6,6 +6,7 @@ import User from "./pages/User/User";
 import Profil from "./pages/profil/Profil";
 import Reglage from "./pages/reglage/Reglage";
 import Login from "./pages/login/Login";
+import Error from "./pages/error/Error";
 import Communaute from "./pages/communaute/communaute";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
@@ -38,7 +39,7 @@ const App = () => {
           element: <Home />,
         },
         {
-          path: "/profil/:currentId",
+          path: "/profil",
           element: <Profil />,
         },
         {
@@ -52,6 +53,10 @@ const App = () => {
         {
           path: "/communaute",
           element: <Communaute />,
+        },
+        {
+          path: "/*",
+          element: <Error />,
         },
       ],
     },
