@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import "./user.scss";
@@ -12,6 +11,13 @@ import SwitchDataButton from "../../components/switchDataButton/SwitchDataButton
 import Loader from "../../components/loader/Loader";
 
 import { getData } from "../../utils/getData";
+
+/**
+ * User Component
+ * @component
+ * @description React component for displaying user data.
+ * @returns {JSX.Element} JSX element representing the User component.
+ */
 
 const User = () => {
   const [userMainData, setUserMainData] = useState([]);
@@ -109,18 +115,6 @@ const User = () => {
     };
     data();
   }, [idCurrent, ismocked]);
-
-  //   console.log(userPerformanceData);
-
-  // if data load, render spinner(loading)
-  //   if (
-  //     isLoadingActivity ||
-  //     isLoadingMain ||
-  //     isLoadingAverage ||
-  //     isLoadingPerformance
-  //   ) {
-  //     return <div>Loading...</div>;
-  //   }
 
   const PerformanceKinds = [
     "Cardio",

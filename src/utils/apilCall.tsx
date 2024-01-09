@@ -2,10 +2,26 @@ import axios from "axios";
 
 const baseURL = "http://localhost:3000/";
 
-export const getUserInfos = async (id) => {
+/**
+ * Retrieves user information based on the provided user ID.
+ * @param {string} id - User ID
+ * @returns {Promise<object>} - User information or error details
+ */
+
+type UserInfoResponse = {
+  error: string;
+  firstName: string;
+  score: string;
+  calorieCount: string;
+  proteinCount: string;
+  carbohydrateCount: string;
+  lipidCount: string;
+};
+
+export const getUserInfos = async (id: string): Promise<UserInfoResponse> => {
   try {
     const response = await axios.get(`${baseURL}user/${id}`);
-    //  console.log("promesse UsersInfos :",response)
+
     return {
       error: "",
       firstName: response.data.data.userInfos.firstName,
@@ -18,7 +34,8 @@ export const getUserInfos = async (id) => {
   } catch (e) {
     console.log(e);
     return {
-      error: "error",
+      error: e.message || "Unknown error",
+
       firstName: "",
       score: "",
       calorieCount: "",
@@ -29,9 +46,20 @@ export const getUserInfos = async (id) => {
   }
 };
 
-// console.log(getUserInfos);
+/**
+ * Retrieves user activities based on the provided user ID.
+ * @param {string} id - User ID
+ * @returns {Promise<object>} - User activities or error details
+ */
 
-export const getUserActivties = async (id) => {
+type UserActivitiesResponse = {
+  error: string;
+  sessions: string | ""; // Adjust the type based on the actual data type
+};
+
+export const getUserActivties = async (
+  id: string
+): Promise<UserActivitiesResponse> => {
   try {
     const response = await axios.get(`${baseURL}user/${id}/activity`);
 
@@ -42,13 +70,26 @@ export const getUserActivties = async (id) => {
   } catch (e) {
     console.log(e);
     return {
-      error: "error",
+      error: e.message || "Unknown error",
       sessions: "",
     };
   }
 };
 
-export const getUserAverageSession = async (id) => {
+/**
+ * Retrieves user's average session information based on the provided user ID.
+ * @param {string} id - User ID
+ * @returns {Promise<object>} - Average session details or error details
+ */
+
+type UserAverageSession = {
+  error: string;
+  sessions: string;
+};
+
+export const getUserAverageSession = async (
+  id: string
+): Promise<UserAverageSession> => {
   try {
     const response = await axios.get(`${baseURL}user/${id}/average-sessions`);
 
@@ -59,13 +100,30 @@ export const getUserAverageSession = async (id) => {
   } catch (e) {
     console.log(e);
     return {
-      error: "error",
+      error: e.message || "Unknown error",
       sessions: "",
     };
   }
 };
 
-export const getUserPerformance = async (id) => {
+/**
+ * Retrieves user performance information based on the provided user ID.
+ * @param {string} id - User ID
+ * @returns {Promise<object>} - User performance details or error details
+ */
+
+type UserPerformance = {
+  error: string;
+  kind: string;
+  data: {
+    value: number;
+    kind: number;
+  };
+};
+
+export const getUserPerformance = async (
+  id: string
+): Promise<UserPerformance> => {
   try {
     const response = await axios.get(`${baseURL}user/${id}/performance`);
 
@@ -77,9 +135,12 @@ export const getUserPerformance = async (id) => {
   } catch (e) {
     console.log(e);
     return {
-      error: "error",
+      error: e.message || "Unknown error",
       kind: "",
-      data: "",
+      data: {
+        value: 0,
+        kind: 0,
+      },
     };
   }
 };

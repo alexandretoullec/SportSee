@@ -12,6 +12,16 @@ import {
   mockUserPerformance,
 } from "./mocksCalls";
 
+/**
+ * Retrieves data based on the specified type, user ID, and whether to use mocked data.
+ *
+ * @param {string} type - The type of data to retrieve.
+ * @param {number} id - User ID.
+ * @param {boolean} isMocked - Whether to use mocked data or API data.
+ * @returns {Promise<UserInfo | UserActivity | UserPerformance | UserAverageSessions>} - Retrieved data or error details.
+ * @throws {Error} - Throws an error if an unsupported data type is specified.
+ */
+
 export const getData = async (type, id, isMocked) => {
   let data = [];
   //   let isMocked = false;
