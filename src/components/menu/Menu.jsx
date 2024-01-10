@@ -1,22 +1,22 @@
-import React from "react";
 import "./menu.scss";
+import { Link } from "react-router-dom";
 
 const Menu = () => {
   return (
     <div className="menu">
       <div className="icons">
-        <a className="icon">
+        <Link to="/" className="icon">
           <img src="/yoga.svg" alt="yoga" />
-        </a>
-        <a className="icon">
+        </Link>
+        <Link to="/" className="icon">
           <img src="/swim.svg" alt="yoga" />
-        </a>
-        <a className="icon">
+        </Link>
+        <Link to="/" className="icon">
           <img src="/bike.svg" alt="yoga" />
-        </a>
-        <a className="icon">
+        </Link>
+        <Link to="/" className="icon">
           <img src="/muscle.svg" alt="yoga" />
-        </a>
+        </Link>
       </div>
       <div className="copyright">
         <span>Copiryght, SportSee 2020</span>

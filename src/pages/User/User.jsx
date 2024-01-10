@@ -20,22 +20,28 @@ import { getData } from "../../utils/getData";
  */
 
 const User = () => {
+  //manage local state components
   const [userMainData, setUserMainData] = useState([]);
   const [userActivityData, setUserActivityData] = useState([]);
   const [userAverageSessionsData, setUserAverageSessionsData] = useState([]);
   const [userPerformanceData, setUserPerformanceData] = useState([]);
+  //manage loading boolean
   const [isLoadingMain, setIsLoadingMain] = useState(false);
   const [isLoadingActivity, setIsLoadingActivity] = useState(false);
   const [isLoadingAverage, setIsLoadingAverage] = useState(false);
   const [isLoadingPerformance, setIsLoadingPerformance] = useState(false);
+  //manage error boolean
   const [errorMain, setErrorMain] = useState(false);
   const [errorActivity, setErrorActivity] = useState(false);
   const [errorAverage, setErrorAverage] = useState(false);
   const [errorPerformance, setErrorPerformance] = useState(false);
 
+  // retrieve ID from URL
   const { currentId } = useParams();
   let performanceData = [];
   const idCurrent = parseInt(currentId);
+
+  // allow to choose the origin of datas
   const [ismocked, setIsMocked] = useState(false);
 
   useEffect(() => {
@@ -57,9 +63,6 @@ const User = () => {
     data();
   }, [idCurrent, ismocked]);
 
-  console.log(userMainData);
-  console.log(errorMain);
-
   useEffect(() => {
     setIsLoadingActivity(true); //load start
     const data = async () => {
@@ -75,8 +78,6 @@ const User = () => {
     };
     data();
   }, [idCurrent, ismocked]);
-
-  //   console.log(userActivityData);
 
   useEffect(() => {
     setIsLoadingAverage(true); //load start

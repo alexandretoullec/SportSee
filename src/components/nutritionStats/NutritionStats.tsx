@@ -8,8 +8,6 @@ type Props = {
 };
 
 const NutritionStats = ({ data }) => {
-  // console.log(data);
-
   return (
     <div className="nutritionStats">
       <NutritionStatCard

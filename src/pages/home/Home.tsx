@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import "./home.scss";
-import { useFetch } from "../../utils/hooks";
-import ProfilCard from "../../components/profilCard/profilCard";
 import { Link } from "react-router-dom";
-
-import {
-  USER_ACTIVITY,
-  USER_AVERAGE_SESSIONS,
-  USER_MAIN_DATA,
-  USER_PERFORMANCE,
-} from "../../mockedDatas/data";
 
 /**
  * Home component representing the main dashboard of the application.

@@ -1,4 +1,3 @@
-import React from "react";
 import "./bigChart.scss";
 import {
   ResponsiveContainer,
@@ -12,28 +11,7 @@ import {
   Rectangle,
 } from "recharts";
 
-type Props = {
-  userId: number;
-
-  sessions: object[];
-};
-
-const CustomTooltip = ({ active, payload }) => {
-  if (active && payload && payload.length) {
-    const session = payload[0].payload;
-    return (
-      <div className="custom-tooltip">
-        <p className="label">{`${session.kilogram}kg`}</p>
-        <p className="label">{`${session.calories}kCal`}</p>
-      </div>
-    );
-  }
-  return null;
-};
-
-const BigChart = (props: Props) => {
-  // console.log(props.sessions);
-
+const BigChart = (props) => {
   return (
     <div className="bigChartBox">
       <div className="chart">
@@ -42,6 +20,7 @@ const BigChart = (props: Props) => {
           <BarChart
             width={500}
             height={300}
+            // eslint-disable-next-line react/prop-types
             data={props.sessions}
             margin={{
               top: 10,

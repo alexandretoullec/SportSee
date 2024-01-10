@@ -3,12 +3,11 @@ import "./banner.scss";
 
 type Props = {
   id: number;
+  firstName: string;
   userInfos: object[];
 };
 
 const Banner = (props: Props) => {
-  // console.log(props.data.id);
-
   return (
     <div className="banner">
       <h1>

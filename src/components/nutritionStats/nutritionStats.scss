@@ -1,6 +1,12 @@
+@import "../../styles/variables.scss";
+
 .nutritionStats {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 90%;
+  @media (max-width: $layout-breakpoint-small) {
+    font-size: 0.8rem;
+    align-items: center;
+  }
 }
