@@ -49,9 +49,14 @@ const User = () => {
     const data = async () => {
       try {
         const request = await getData("USER_MAIN_DATA", idCurrent, ismocked);
-        console.log(request);
-        setUserMainData(request);
-        setErrorMain(false);
+        if (request.error === "Network Error") {
+          console.log(request.error);
+          setErrorMain(true);
+        } else {
+          console.log(request);
+          setUserMainData(request);
+          setErrorMain(false);
+        }
       } catch (error) {
         console.error("Error fetching user main data:", error);
         setErrorMain(true);
@@ -68,7 +73,12 @@ const User = () => {
     const data = async () => {
       try {
         const request = await getData("USER_ACTIVITY", idCurrent, ismocked);
-        setUserActivityData(request);
+        if (request.error === "Network Error") {
+          console.log(request.error);
+          setErrorActivity(true);
+        } else {
+          setUserActivityData(request);
+        }
       } catch {
         console.log("data error");
         setErrorActivity(true);
@@ -88,7 +98,12 @@ const User = () => {
           idCurrent,
           ismocked
         );
-        setUserAverageSessionsData(request);
+        if (request.error === "Network Error") {
+          console.log(request.error);
+          setErrorAverage(true);
+        } else {
+          setUserAverageSessionsData(request);
+        }
       } catch {
         console.log("data error");
         setErrorAverage(true);
@@ -106,7 +121,12 @@ const User = () => {
     const data = async () => {
       try {
         const request = await getData("USER_PERFORMANCE", idCurrent, ismocked);
-        setUserPerformanceData(request);
+        if (request.error === "Network Error") {
+          console.log(request.error);
+          setErrorPerformance(true);
+        } else {
+          setUserPerformanceData(request);
+        }
       } catch {
         console.log("data error");
         setErrorPerformance(true);
@@ -185,7 +205,6 @@ const User = () => {
       }
     });
   }
-  console.log(errorActivity);
 
   return (
     <div>
@@ -202,13 +221,13 @@ const User = () => {
       ) : (
         <>
           {errorMain ? (
-            <p>Error fetching main data: {errorMain}</p>
+            <p className="error">Error fetching main data</p>
           ) : errorActivity ? (
-            <p>Error fetching activity data: {errorActivity}</p>
+            <p className="error">Error fetching activity data</p>
           ) : errorAverage ? (
-            <p>Error fetching average data: {errorAverage}</p>
+            <p className="error">Error fetching average data</p>
           ) : errorPerformance ? (
-            <p>Error fetching performance data: {errorPerformance}</p>
+            <p className="error">Error fetching performance data</p>
           ) : (
             <div className="home">
               {userMainData && <Banner {...userMainData} />}
