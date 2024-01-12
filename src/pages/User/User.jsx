@@ -49,11 +49,14 @@ const User = () => {
     const data = async () => {
       try {
         const request = await getData("USER_MAIN_DATA", idCurrent, ismocked);
-        if (request.error === "Network Error") {
-          console.log(request.error);
+        if (ismocked === true) {
+          setUserMainData(request);
+          setErrorMain(false);
+        } else if (request.error === "Network Error") {
+          // console.log(request.error);
           setErrorMain(true);
         } else {
-          console.log(request);
+          // console.log(request);
           setUserMainData(request);
           setErrorMain(false);
         }
@@ -73,11 +76,16 @@ const User = () => {
     const data = async () => {
       try {
         const request = await getData("USER_ACTIVITY", idCurrent, ismocked);
-        if (request.error === "Network Error") {
-          console.log(request.error);
+        if (ismocked === true) {
+          setUserActivityData(request);
+
+          setErrorActivity(false);
+        } else if (request.error === "Network Error") {
+          // console.log(request.error);
           setErrorActivity(true);
         } else {
           setUserActivityData(request);
+          setErrorActivity(false);
         }
       } catch {
         console.log("data error");
@@ -98,11 +106,16 @@ const User = () => {
           idCurrent,
           ismocked
         );
-        if (request.error === "Network Error") {
-          console.log(request.error);
+        if (ismocked === true) {
+          setUserAverageSessionsData(request);
+
+          setErrorAverage(false);
+        } else if (request.error === "Network Error") {
+          // console.log(request.error);
           setErrorAverage(true);
         } else {
           setUserAverageSessionsData(request);
+          setErrorAverage(false);
         }
       } catch {
         console.log("data error");
@@ -121,11 +134,17 @@ const User = () => {
     const data = async () => {
       try {
         const request = await getData("USER_PERFORMANCE", idCurrent, ismocked);
+        if (ismocked === true) {
+          setUserPerformanceData(request);
+
+          setErrorPerformance(false);
+        }
         if (request.error === "Network Error") {
-          console.log(request.error);
+          // console.log(request.error);
           setErrorPerformance(true);
         } else {
           setUserPerformanceData(request);
+          setErrorPerformance(false);
         }
       } catch {
         console.log("data error");
@@ -206,7 +225,37 @@ const User = () => {
     });
   }
 
-  return (
+  return ismocked ? (
+    <div>
+      <SwitchDataButton
+        isToggled={ismocked}
+        onToggle={() => setIsMocked(!ismocked)}
+        toggleText={ismocked ? "using mocked datas" : "using API datas"}
+      />
+      <div className="grid">
+        {userMainData && <Banner {...userMainData} />}
+        <div className="mainGrid">
+          <div className="box box1">
+            {userActivityData && <BigChart {...userActivityData} />}
+          </div>
+          <div className="box box2">
+            <SimpleChart data={userAverageSessionsData.sessions} />
+          </div>
+
+          <div className="box box3">
+            {performanceData && <RadarChart data={performanceData} />}
+          </div>
+
+          <div className="box box4">
+            {userMainData && <RoundedChart data={userMainData.score} />}
+          </div>
+          <div className="box box5">
+            {userMainData && <NutritionStats data={userMainData} />}
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
     <div>
       <SwitchDataButton
         isToggled={ismocked}
@@ -229,7 +278,7 @@ const User = () => {
           ) : errorPerformance ? (
             <p className="error">Error fetching performance data</p>
           ) : (
-            <div className="home">
+            <div className="grid">
               {userMainData && <Banner {...userMainData} />}
               <div className="mainGrid">
                 <div className="box box1">

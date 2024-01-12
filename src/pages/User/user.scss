@@ -1,6 +1,6 @@
 @import "../../styles/variables.scss";
 
-.home {
+.grid {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -10,7 +10,7 @@
     padding: 1rem;
   }
   .banner {
-    height: 20%;
+    height: 25%;
   }
   .mainGrid {
     height: 80%;
@@ -19,7 +19,6 @@
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: minmax(50%, auto);
     @media (max-width: $layout-breakpoint-small) {
-      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       width: 100%;
     }

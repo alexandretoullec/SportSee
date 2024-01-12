@@ -20,7 +20,7 @@ export class UserInfoModelisation {
 
 export class UserActivitiesModelisation {
   error: string;
-  sessions: Session[];
+  sessions: string;
 
   constructor(data: any) {
     this.error = data.error || "";
@@ -37,7 +37,7 @@ interface Session {
 
 export class UserAverageSessionModelisation {
   error: string;
-  sessions: AverageSession[];
+  sessions: string;
 
   constructor(data: any) {
     this.error = data.error || "";
