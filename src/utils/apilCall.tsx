@@ -1,5 +1,12 @@
 import axios from "axios";
 
+import {
+  UserInfoModelisation,
+  UserActivitiesModelisation,
+  UserAverageSessionModelisation,
+  UserPerformanceModelisation,
+} from "./modelisation";
+
 const baseURL = "http://localhost:3000/";
 
 /**
@@ -8,29 +15,12 @@ const baseURL = "http://localhost:3000/";
  * @returns {Promise<object>} - User information or error details
  */
 
-type UserInfoResponse = {
-  error: string;
-  firstName: string;
-  score: string;
-  calorieCount: string;
-  proteinCount: string;
-  carbohydrateCount: string;
-  lipidCount: string;
-};
-
-export const getUserInfos = async (id: string): Promise<UserInfoResponse> => {
+export const getUserInfos = async (id: string) => {
   try {
     const response = await axios.get(`${baseURL}user/${id}`);
+    const userData = new UserInfoModelisation(response.data.data);
 
-    return {
-      error: "",
-      firstName: response.data.data.userInfos.firstName,
-      score: response.data.data.score || response.data.data.todayScore,
-      calorieCount: response.data.data.keyData.calorieCount,
-      proteinCount: response.data.data.keyData.proteinCount,
-      carbohydrateCount: response.data.data.keyData.carbohydrateCount,
-      lipidCount: response.data.data.keyData.lipidCount,
-    };
+    return userData;
   } catch (e) {
     console.log(e);
     return {
@@ -63,10 +53,9 @@ export const getUserActivties = async (
   try {
     const response = await axios.get(`${baseURL}user/${id}/activity`);
 
-    return {
-      error: "",
-      sessions: response.data.data.sessions,
-    };
+    const activitiesData = new UserActivitiesModelisation(response.data.data);
+
+    return activitiesData;
   } catch (e) {
     console.log(e);
     return {
@@ -93,10 +82,11 @@ export const getUserAverageSession = async (
   try {
     const response = await axios.get(`${baseURL}user/${id}/average-sessions`);
 
-    return {
-      error: "",
-      sessions: response.data.data.sessions,
-    };
+    const averageSessionsData = new UserAverageSessionModelisation(
+      response.data.data
+    );
+
+    return averageSessionsData;
   } catch (e) {
     console.log(e);
     return {
@@ -127,11 +117,9 @@ export const getUserPerformance = async (
   try {
     const response = await axios.get(`${baseURL}user/${id}/performance`);
 
-    return {
-      error: "",
-      kind: response.data.data.kind,
-      data: response.data.data.data,
-    };
+    const performanceData = new UserPerformanceModelisation(response.data.data);
+
+    return performanceData;
   } catch (e) {
     console.log(e);
     return {
